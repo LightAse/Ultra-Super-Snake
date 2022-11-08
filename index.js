@@ -6,6 +6,7 @@ const cors = require("cors");
 require('dotenv').config();
 const PORT = process.env.PORT || 5000;
 const uri = process.env.MONGO_URI;
+const Adress = process.env.Adress;
 
 /******/
 const UsrController = require('./controllers/user');
@@ -78,8 +79,12 @@ app.post("/users",async (req,res) =>{
     let email = req.body.email;
     let isActive = req.body.isActive;
     let password = req.body.password;
+    let bestOverallScore = req.body.bestOverallScore;
+    let bestTimeScore = req.body.bestTimeScore;
+    let bestLvlScore = req.body.bestLvlScore;
+    let actLvl = req.body.actLvl;
     try{
-      const result = await UsrController.addUser(name,lastname,email,isActive,password);
+      const result = await UsrController.addUser(name,lastname,email,isActive,password,bestOverallScore,bestTimeScore,bestLvlScore,actLvl);
       if(result){
         res.status(201).send("Usuario creado correctamente"); // 201
       }else{
@@ -163,4 +168,5 @@ app.post("/auth/login", async (req,res) => {
 
 http.listen(PORT, () => {
   console.log(`Listening to ${PORT}`);
+  console.log(`port adress ${Adress}`);
 });

@@ -10,7 +10,7 @@ const usrSchema = new Schema({
 	name:{
 		type: String,
 		required:true
-    },
+    }	,
     lastname:{
 		type: String,
 		required:true
@@ -27,6 +27,27 @@ const usrSchema = new Schema({
 	password:{
 		type: String,
 		required:true
+	},
+	bestOverallScore:{
+		type: Number,
+		requiered:true
+	},
+	bestTimeScore:{
+		type: String,
+		required:true
+	},
+	bestLvlScore:{
+		type: String,
+		required:true
+	},
+	actLvl:{
+		type: String,
+		required:true
+	},
+	skinsUnlocked:{
+		type: Array,
+		required:true,
+		default: ['default']
 	}
 	
 }, { timestamps: true } ).set('toJSON',{

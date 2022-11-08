@@ -2,7 +2,7 @@ require('mongoose');
 const Usr = require('../models/user');
 
 
-const addUser = async (name,lastname,email,isActive,password) => {
+const addUser = async (name,lastname,email,isActive,password,bestOverallScore,bestTimeScore,bestLvlScore,actLvl) => {
 
     let existUser = await Usr.findOne({ email: email });
     console.log(existUser);
@@ -19,7 +19,11 @@ const addUser = async (name,lastname,email,isActive,password) => {
                 lastname:lastname,
                 email: email,
                 isActive:isActive,
-                password:cryptoPass
+                password:cryptoPass,
+                bestOverallScore: bestOverallScore,
+                bestTimeScore: bestTimeScore,
+                bestLvlScore: bestLvlScore,
+                actLvl: actLvl
             }
         );
 
