@@ -2,7 +2,7 @@ require('mongoose');
 const Usr = require('../models/user');
 
 
-const addUser = async (name,lastname,email,isActive,password,bestOverallScore,bestTimeScore,bestLvlScore,actLvl) => {
+const addUser = async (name,lastname,email,password) => {
 
     let existUser = await Usr.findOne({ email: email });
     console.log(existUser);
@@ -18,12 +18,12 @@ const addUser = async (name,lastname,email,isActive,password,bestOverallScore,be
                 name: name,
                 lastname:lastname,
                 email: email,
-                isActive:isActive,
+                isActive: true,
                 password:cryptoPass,
-                bestOverallScore: bestOverallScore,
-                bestTimeScore: bestTimeScore,
-                bestLvlScore: bestLvlScore,
-                actLvl: actLvl
+                bestOverallScore: 0,
+                bestTimeScore: "00:00",
+                bestLvlScore: 1,
+                actLvl: 1
             }
         );
 
@@ -53,6 +53,14 @@ const getUser = async(id) => {
     return user;
 }
 
+const findEmail = async(email) =>{
+
+    const user = await Usr.findOne({ email: email});
+
+    return user;
+
+}
+
 const editUser = async(user) => {
 
     const result = await Usr.findByIdAndUpdate(user._id,user,{new:true});
@@ -74,4 +82,12 @@ const deleteUser = async(id) => {
     return result;
 }
 
-module.exports = { addUser, getAllUsers, getUser, editUser, editRoles, deleteUser }
+const updateScore = async(score,id) => {
+
+    const result = await Usr.findByIdAndUpdate(id,{bestOverallScore:score},{new:true});
+
+    return result;
+
+}
+
+module.exports = { addUser, getAllUsers, getUser, editUser, editRoles, deleteUser, findEmail, updateScore }

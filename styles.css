@@ -1,29 +1,17 @@
 body {
 
+    font-size:larger;
     font-family: Arial, Helvetica, sans-serif;
+    text-align:center;
+
+}
+
+a{
+
+    text-decoration: none;
+
 
 }
 
 
-h1 {
-    color: pink;
-    font-size: 2em;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    border-bottom: 10px solid darkviolet;
-    
-  }
-
-h2{
-
-    font-size: 1.5em;
-    text-decoration: underline;
-}
-
-.job{
-
-    color: grey;
-    font-weight: bold;
-
-
-}
     

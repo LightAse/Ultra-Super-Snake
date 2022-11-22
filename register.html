@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Register USS</title>
+</head>
+<body>
+    <form id="form">
+        <label for="name">Name:</label><br>
+        <input type="text" name="name" id="name"><br>
+        <label for="lastname">LastName:</label><br>
+        <input type="text" name="lastname" id="lastname"><br>
+        <label for="email">Email:</label><br>
+        <input type="email" name="email"><br>
+        <label for="password">Password:</label><br>
+        <input type="password"  name="password"><br>
+        <input type="submit" id="sb-register" value="register">
+        <input type="reset">
+    </form>
+    <div id="button"><a href="login.html">Go to login page</a></div>
+    
+</body>
+<script>
+
+    const form = document.getElementById("form")
+
+    form.addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        const payload = new FormData(form);
+        console.log([...payload]);
+        const login = 'http://localhost:5000/users';
+
+        fetch(login, {
+            method: "POST",
+            headers:{
+                "content-type": "application/json"
+            },
+            body: JSON.stringify({
+                name: payload.get('name'),
+                lastname: payload.get('lastname'),
+                email: payload.get('email'),
+                password: payload.get('password')
+            }), 
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.error) {
+                alert("Error Password or Username"); /*displays error message*/
+                } else {
+                    window.open(
+                    "login.html"
+                    ); /*opens the target page while Id & password matches*/
+                    window.close();
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    window.open("login.html");
+    });
+</script>
+</html>

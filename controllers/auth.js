@@ -10,6 +10,7 @@ const login = async(email,password) => {
         .digest('hex');
 
     const  result = await Usr.findOne({ email: email, isActive:true, password:cryptoPass })
+    console.log(cryptoPass);
     
     if (result){
             // retorno token

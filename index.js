@@ -36,8 +36,10 @@ app.post("/",(req,res) => {
     res.send("Llamada post");
 });
 
+
+//Middleware.verify
 // Get de todos los usuarios
-app.get("/users",Middleware.verify,async (req,res) =>{
+app.get("/users",async (req,res) =>{
 
   let limit = req.query.limit;
   let offset = req.query.offset;
@@ -77,14 +79,10 @@ app.post("/users",async (req,res) =>{
     let name = req.body.name;
     let lastname = req.body.lastname;
     let email = req.body.email;
-    let isActive = req.body.isActive;
     let password = req.body.password;
-    let bestOverallScore = req.body.bestOverallScore;
-    let bestTimeScore = req.body.bestTimeScore;
-    let bestLvlScore = req.body.bestLvlScore;
-    let actLvl = req.body.actLvl;
+
     try{
-      const result = await UsrController.addUser(name,lastname,email,isActive,password,bestOverallScore,bestTimeScore,bestLvlScore,actLvl);
+      const result = await UsrController.addUser(name,lastname,email,password);
       if(result){
         res.status(201).send("Usuario creado correctamente"); // 201
       }else{
@@ -163,6 +161,56 @@ app.post("/auth/login", async (req,res) => {
     }catch(error){
         res.status(500).send("Error");
     }  
+})
+
+
+app.post("/post/email", async(req,res) => {
+
+  const email = req.body.email;
+
+  try{
+
+    const result = await UsrController.findEmail(email);
+
+    if(result){
+
+      res.status(200).json(result);
+      console.log("find");
+
+    }else{
+
+      res.status(404).send("el usuario no existe");
+    }
+
+  }catch(error){
+    res.status(500).send("error");
+
+  }
+
+})
+
+app.post("/up/:id/ovscore", async(req,res) => {
+
+  const score = req.body.bestOverallScore;
+
+  try{
+
+    const result = await UsrController.updateScore(score,req.params.id);
+
+    if(result){
+
+      res.status(200).json(result);
+
+    }else{
+
+      res.status(404).send("el usuario no existe");
+    }
+
+  }catch(error){
+    res.status(500).send("error");
+
+  }
+
 })
 
 
